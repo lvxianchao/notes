@@ -4,18 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Homestead 配置 Xdebug 3 调试 Web 页面, 月光酒馆">
-    <meta name="description" content="
-以下内容基于：
-
-Homestead v13.0.1
-PHP 8.0
-Xdebug v3.0.4
-Chrome 96.0.4664.110
-Chrome Extension: Xdebug Helper 1.6.1
-
-
-首先进入到 Hom">
+    <meta name="keywords" content="测试文章, 月光酒馆">
+    <meta name="description" content="Fucker">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -27,7 +17,7 @@ Chrome Extension: Xdebug Helper 1.6.1
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Homestead 配置 Xdebug 3 调试 Web 页面 | 月光酒馆</title>
+    <title>测试文章 | 月光酒馆</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpeg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -211,12 +201,12 @@ Chrome Extension: Xdebug Helper 1.6.1
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Homestead 配置 Xdebug 3 调试 Web 页面</h1>
+                    <h1 class="description center-align post-title">测试文章</h1>
                 </div>
             </div>
         </div>
@@ -330,29 +320,12 @@ Chrome Extension: Xdebug Helper 1.6.1
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/homestead/">
-                                <span class="chip bg-color">homestead</span>
-                            </a>
-                        
-                            <a href="/tags/xdebug/">
-                                <span class="chip bg-color">xdebug</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E5%BC%80%E5%8F%91/" class="post-category">
-                                开发
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -361,21 +334,21 @@ Chrome Extension: Xdebug Helper 1.6.1
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-12-25
+                    2021-12-26
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-25
+                    2021-12-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    309
+                    1
                 </div>
                 
 
@@ -405,40 +378,7 @@ Chrome Extension: Xdebug Helper 1.6.1
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>以下内容基于：</p>
-<ul>
-<li>Homestead v13.0.1</li>
-<li>PHP 8.0</li>
-<li>Xdebug v3.0.4</li>
-<li>Chrome 96.0.4664.110</li>
-<li>Chrome Extension: Xdebug Helper 1.6.1</li>
-</ul>
-</blockquote>
-<p>首先进入到 Homestead 里，切换到想要使用的 PHP 版本上，执行 <code>php -v</code> 查看信息。</p>
-<p>如果没有 Xdebug 字样，则需要执行 <code>sudo phpenmod xdebug</code>来开启动 xdebug：</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242520.png"></p>
-<p>查看对应版本 PHP 的 xdebug 配置文件位置：</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242639.png"></p>
-<p>编辑这个配置文件，在文件末尾添加以下两行（如果你的 Xdebug 主版本号是 2 的话，这里的配置项会不同），保存退出：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xdebug.client_host<span class="token operator">=</span><span class="token number">192.168</span>.10.1
-
-xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>执行 <code>sudo service php8.0-fpm restart</code>重启 FPM。</p>
-<p>在 PHPStorm 里设置里，配置一个远程 CLI 解释器，选择 <code>Vagrant</code>:</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242273.png"></p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242446.png"></p>
-<p><code>Vagrant 实例文件夹</code> 选择 Homestead 文件夹所在位置：</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243072.png"></p>
-<p>前往 Chrome 应用商店下载安装 <a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc">Xdebug helper - Chrome 网上应用店</a>， 打开配置页面，配置 PHPStorm 的 IDE Key，然后开启 Debug 模式：</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243821.png"></p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243126.png"></p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251230024.png"></p>
-<p>在代码里下个断点，触发断点后 PHPStorm 里会弹出如下窗口，选择<code>手动选择本文件或项目</code>后点击<code>接受</code>：</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243177.png"></p>
-<p>再次进入 PHPStorm 设置，选择 <code>PHP &gt; 服务器</code> 可以看到刚刚配置的服务器，将<strong>顶层目录</strong>映射正确后即可正常 Debug：</p>
-
+                <h1 id="Fucker"><a href="#Fucker" class="headerlink" title="Fucker"></a>Fucker</h1>
                 
             </div>
             <hr/>
@@ -464,7 +404,7 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lvxianchao.github.io/f57e8b7a.html">https://lvxianchao.github.io/f57e8b7a.html</a>
+                    <a href="https://lvxianchao.github.io/7a6a6b5a.html">https://lvxianchao.github.io/7a6a6b5a.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -501,15 +441,7 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/homestead/">
-                                    <span class="chip bg-color">homestead</span>
-                                </a>
-                            
-                                <a href="/tags/xdebug/">
-                                    <span class="chip bg-color">xdebug</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -679,9 +611,10 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/7a6a6b5a.html">
                     <div class="card-image">
@@ -699,9 +632,9 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-26
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -710,6 +643,7 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -717,7 +651,7 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/f57e8b7a.html">
@@ -751,7 +685,6 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
