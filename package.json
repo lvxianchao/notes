@@ -6,7 +6,8 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "theme": "git clone git@github.com:lvxianchao/hexo-theme-matery.git themes/hexo-theme-matery"
   },
   "hexo": {
     "version": "5.4.0"
