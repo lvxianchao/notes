@@ -6,7 +6,7 @@
   <link href="https://coderlxc.com/atom.xml" rel="self"/>
   
   <link href="https://coderlxc.com/"/>
-  <updated>2021-12-25T08:27:27.761Z</updated>
+  <updated>2022-01-04T14:26:24.221Z</updated>
   <id>https://coderlxc.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://coderlxc.com/f57e8b7a.html"/>
     <id>https://coderlxc.com/f57e8b7a.html</id>
     <published>2021-12-25T08:21:13.000Z</published>
-    <updated>2021-12-25T08:27:27.761Z</updated>
+    <updated>2022-01-04T14:26:24.221Z</updated>
     
     <content type="html"><![CDATA[<blockquote><p>以下内容基于：</p><ul><li>Homestead v13.0.1</li><li>PHP 8.0</li><li>Xdebug v3.0.4</li><li>Chrome 96.0.4664.110</li><li>Chrome Extension: Xdebug Helper 1.6.1</li></ul></blockquote><p>首先进入到 Homestead 里，切换到想要使用的 PHP 版本上，执行 <code>php -v</code> 查看信息。</p><p>如果没有 Xdebug 字样，则需要执行 <code>sudo phpenmod xdebug</code>来开启动 xdebug：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242520.png"></p><p>查看对应版本 PHP 的 xdebug 配置文件位置：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242639.png"></p><p>编辑这个配置文件，在文件末尾添加以下两行（如果你的 Xdebug 主版本号是 2 的话，这里的配置项会不同），保存退出：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xdebug.client_host<span class="token operator">=</span><span class="token number">192.168</span>.10.1xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>执行 <code>sudo service php8.0-fpm restart</code>重启 FPM。</p><p>在 PHPStorm 里设置里，配置一个远程 CLI 解释器，选择 <code>Vagrant</code>:</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242273.png"></p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242446.png"></p><p><code>Vagrant 实例文件夹</code> 选择 Homestead 文件夹所在位置：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243072.png"></p><p>前往 Chrome 应用商店下载安装 <a href="https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc">Xdebug helper - Chrome 网上应用店</a>， 打开配置页面，配置 PHPStorm 的 IDE Key，然后开启 Debug 模式：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243821.png"></p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243126.png"></p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251230024.png"></p><p>在代码里下个断点，触发断点后 PHPStorm 里会弹出如下窗口，选择<code>手动选择本文件或项目</code>后点击<code>接受</code>：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243177.png"></p><p>再次进入 PHPStorm 设置，选择 <code>PHP &gt; 服务器</code> 可以看到刚刚配置的服务器，将<strong>顶层目录</strong>映射正确后即可正常 Debug：</p>]]></content>
     
