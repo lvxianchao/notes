@@ -2,7 +2,8 @@
 title: Homestead 配置 Xdebug 3 调试 Web 页面
 abbrlink: f57e8b7a
 date: 2021-12-25 16:21:13
-category: 开发
+categories:
+ - 开发
 tags:
  - homestead
  - xdebug
