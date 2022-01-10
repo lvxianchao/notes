@@ -4,18 +4,21 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Homestead 配置 Xdebug 3 调试 Web 页面, 月光酒馆">
-    <meta name="description" content="
-以下内容基于：
+    <meta name="keywords" content="CentOS 7 部署 Gogs 私有代码仓库, 月光酒馆">
+    <meta name="description" content="设置 Git 用户
+创建 Git 用户
 
-Homestead v13.0.1
-PHP 8.0
-Xdebug v3.0.4
-Chrome 96.0.4664.110
-Chrome Extension: Xdebug Helper 1.6.1
+adduser git
 
 
-首先进入到 Hom">
+给 /etc/sudoers 添加写权限
+
+chmod +w /etc/sudoers
+
+
+把 Git 用户加进 sudoers，并设置 sudo 的时候不用输入密码
+
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -27,7 +30,7 @@ Chrome Extension: Xdebug Helper 1.6.1
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Homestead 配置 Xdebug 3 调试 Web 页面 | 月光酒馆</title>
+    <title>CentOS 7 部署 Gogs 私有代码仓库 | 月光酒馆</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpeg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -211,12 +214,12 @@ Chrome Extension: Xdebug Helper 1.6.1
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Homestead 配置 Xdebug 3 调试 Web 页面</h1>
+                    <h1 class="description center-align post-title">CentOS 7 部署 Gogs 私有代码仓库</h1>
                 </div>
             </div>
         </div>
@@ -332,27 +335,22 @@ Chrome Extension: Xdebug Helper 1.6.1
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/homestead/">
-                                <span class="chip bg-color">homestead</span>
+                            <a href="/tags/centos/">
+                                <span class="chip bg-color">centos</span>
                             </a>
                         
-                            <a href="/tags/xdebug/">
-                                <span class="chip bg-color">xdebug</span>
+                            <a href="/tags/gogs/">
+                                <span class="chip bg-color">gogs</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/">
+                                <span class="chip bg-color">代码仓库</span>
                             </a>
                         
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E5%BC%80%E5%8F%91/" class="post-category">
-                                开发
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -361,21 +359,21 @@ Chrome Extension: Xdebug Helper 1.6.1
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-12-25
+                    2022-01-10
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-04
+                    2022-01-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    309
+                    466
                 </div>
                 
 
@@ -405,39 +403,76 @@ Chrome Extension: Xdebug Helper 1.6.1
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>以下内容基于：</p>
-<ul>
-<li>Homestead v13.0.1</li>
-<li>PHP 8.0</li>
-<li>Xdebug v3.0.4</li>
-<li>Chrome 96.0.4664.110</li>
-<li>Chrome Extension: Xdebug Helper 1.6.1</li>
-</ul>
-</blockquote>
-<p>首先进入到 Homestead 里，切换到想要使用的 PHP 版本上，执行 <code>php -v</code> 查看信息。</p>
-<p>如果没有 Xdebug 字样，则需要执行 <code>sudo phpenmod xdebug</code>来开启动 xdebug：</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242520.png"></p>
-<p>查看对应版本 PHP 的 xdebug 配置文件位置：</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242639.png"></p>
-<p>编辑这个配置文件，在文件末尾添加以下两行（如果你的 Xdebug 主版本号是 2 的话，这里的配置项会不同），保存退出：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xdebug.client_host<span class="token operator">=</span><span class="token number">192.168</span>.10.1
+                <h2 id="设置-Git-用户"><a href="#设置-Git-用户" class="headerlink" title="设置 Git 用户"></a>设置 Git 用户</h2><ol>
+<li>创建 Git 用户</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adduser <span class="token function">git</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>给 <code>/etc/sudoers</code> 添加写权限</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> +w /etc/sudoers<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>执行 <code>sudo service php8.0-fpm restart</code>重启 FPM。</p>
-<p>在 PHPStorm 里设置里，配置一个远程 CLI 解释器，选择 <code>Vagrant</code>:</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242273.png"></p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242446.png"></p>
-<p><code>Vagrant 实例文件夹</code> 选择 Homestead 文件夹所在位置：</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243072.png"></p>
-<p>前往 Chrome 应用商店下载安装 <a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc">Xdebug helper - Chrome 网上应用店</a>， 打开配置页面，配置 PHPStorm 的 IDE Key，然后开启 Debug 模式：</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243821.png"></p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243126.png"></p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251230024.png"></p>
-<p>在代码里下个断点，触发断点后 PHPStorm 里会弹出如下窗口，选择<code>手动选择本文件或项目</code>后点击<code>接受</code>：</p>
-<p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243177.png"></p>
-<p>再次进入 PHPStorm 设置，选择 <code>PHP &gt; 服务器</code> 可以看到刚刚配置的服务器，将<strong>顶层目录</strong>映射正确后即可正常 Debug：</p>
+<ol start="3">
+<li>把 Git 用户加进 <code>sudoers</code>，并设置 sudo 的时候不用输入密码</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span>     <span class="token assign-left variable">ALL</span><span class="token operator">=</span><span class="token punctuation">(</span>ALL<span class="token punctuation">)</span>       NOPASSWD:ALL<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="搭建-Gogs"><a href="#搭建-Gogs" class="headerlink" title="搭建 Gogs"></a>搭建 Gogs</h2><ol>
+<li>进入到 Git 用户的家目录并下载 Gogs 的进制包，最新版本的二进制包可以去<a target="_blank" rel="noopener" href="https://gogs.io/docs/installation/install_from_binary">官网</a>查看。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /home/git <span class="token operator">&amp;&amp;</span> <span class="token function">wget</span> https://dl.gogs.io/0.12.3/gogs_0.12.3_linux_amd64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>解压</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> -zxvf gogs_0.12.3_linux_amd64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="3">
+<li>进入到刚刚解压好的 gogs 目录，使用 Git 用户临时启动 Gogs 服务</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> gogs <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> -u <span class="token function">git</span> ./gogs web<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="4">
+<li>创建一个 Gogs 数据库</li>
+</ol>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">database</span> gogs <span class="token keyword">default</span> <span class="token keyword">CHARSET</span> utf8mb4 <span class="token keyword">COLLATE</span> utf8mb4_unicode_ci<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="5">
+<li>创建一个只有本地可以连接的 <code>gogs</code> 用户，密码是 <code>password</code>，<strong>注意将密码修改你自己的</strong>。</li>
+</ol>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">user</span> <span class="token string">'gogs'</span><span class="token variable">@'127.0.0.1'</span> identified <span class="token keyword">by</span> <span class="token string">'password'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="6">
+<li>给 <code>gogs</code> 用户分配 <code>gogs</code> 数据库的所有权限</li>
+</ol>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">GRANT</span> <span class="token keyword">ALL</span> <span class="token keyword">PRIVILEGES</span> <span class="token keyword">on</span> gogs<span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">to</span> <span class="token string">'gogs'</span><span class="token variable">@'127.0.0.1'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这时候就可以通过服务器的 <code>IP:3000</code> 访问了 Gogs 的 Web 页面了，我用 Nginx 配了反向代理，所以直接访问 <code>IP</code> 即可。</p>
+<p>在 Web 页面上配置好<strong>数据库信息</strong>、<strong>仓库根目录</strong>、<strong>运行系统用户</strong>等信息，点击<code>立即安装</code>即可。</p>
+<p>关于<code>管理员账号设置</code>，可以这个页面中直接设置，也可以安装完成以后再去注册，Gogs 的规则是：<strong>第一个注册的用户</strong>就是管理员。</p>
+<p>如下是我的配置：</p>
+<p><img src="https://coderlxc-1256179520.file.myqcloud.com/20210812/dI4Ob8.png" alt="image-20210812105425086"></p>
+<h2 id="把-Gogs-作为服务运行并配置开机自启动"><a href="#把-Gogs-作为服务运行并配置开机自启动" class="headerlink" title="把 Gogs 作为服务运行并配置开机自启动"></a>把 Gogs 作为服务运行并配置开机自启动</h2><ol>
+<li>把 Gogs 官方提供的 <code>gogs.service</code> 模板复制到 <code>/etc/systemd/system</code> 目录下：</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> /home/git/gogs/scripts/systemd/gogs.service /etc/systemd/system<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>修改 <code>gogs.service</code> 模板，如果你是按照上面的步骤操作的则没有什么需要修改的。</li>
+<li>重新加载 <code>systemd</code>:</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl daemon-reload<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="4">
+<li>启动 Gogs 服务</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl start gogs<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="5">
+<li>加入开机自启动</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl <span class="token builtin class-name">enable</span> gogs<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
                 
             </div>
@@ -464,7 +499,7 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://coderlxc.com/f57e8b7a.html">https://coderlxc.com/f57e8b7a.html</a>
+                    <a href="https://coderlxc.com/7ffb7ac.html">https://coderlxc.com/7ffb7ac.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -502,12 +537,16 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/homestead/">
-                                    <span class="chip bg-color">homestead</span>
+                                <a href="/tags/centos/">
+                                    <span class="chip bg-color">centos</span>
                                 </a>
                             
-                                <a href="/tags/xdebug/">
-                                    <span class="chip bg-color">xdebug</span>
+                                <a href="/tags/gogs/">
+                                    <span class="chip bg-color">gogs</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/">
+                                    <span class="chip bg-color">代码仓库</span>
                                 </a>
                             
                         </div>
@@ -679,9 +718,10 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/7ffb7ac.html">
                     <div class="card-image">
@@ -699,9 +739,9 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-10
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -710,6 +750,7 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -733,7 +774,7 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/f57e8b7a.html">
@@ -767,7 +808,6 @@ xdebug.mode<span class="token operator">=</span>debug<span aria-hidden="true" cl
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
