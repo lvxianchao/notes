@@ -259,21 +259,21 @@
                     <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
                         
 <div class="statis">
-    <span class="count"><a href="/">3</a></span>
+    <span class="count"><a href="/">4</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">1</a></span>
+    <span class="count"><a href="/categories">3</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">7</a></span>
+    <span class="count"><a href="/tags">11</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -289,21 +289,21 @@
                                 <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
                                     
 <div class="statis">
-    <span class="count"><a href="/">3</a></span>
+    <span class="count"><a href="/">4</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">1</a></span>
+    <span class="count"><a href="/categories">3</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">7</a></span>
+    <span class="count"><a href="/tags">11</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -439,7 +439,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,1,2],
+                data: [0,0,0,0,0,0,0,0,0,0,0,1,3],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -481,7 +481,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"开发","value":1}],
+                data: [{"name":"运维","value":2},{"name":"开发","value":1},{"name":"折腾","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -505,7 +505,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["centos","homestead","xdebug","gogs","代码仓库","yapi","部署"]
+                data: ["CentOS","Gogs","代码仓库","Yapi","部署","Homestead","Xdebug","Mac","VirtualBox","OpenWRT"]
             }
         ],
         yAxis: [
@@ -518,7 +518,7 @@
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [2,1,1,1,1,1,1],
+                data: [2,1,1,1,1,1,1,1,1,1],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
@@ -688,26 +688,14 @@
         <div class="tag-chips center-align">
             
             
-            <a href="/tags/homestead/">
-                <span class="chip center-align waves-effect waves-light chip-default">homestead</span>
+            <a href="/tags/CentOS/">
+                <span class="chip center-align waves-effect waves-light chip-default">CentOS</span>
             </a>
             
             
             
-            <a href="/tags/xdebug/">
-                <span class="chip center-align waves-effect waves-light chip-default">xdebug</span>
-            </a>
-            
-            
-            
-            <a href="/tags/centos/">
-                <span class="chip center-align waves-effect waves-light chip-default">centos</span>
-            </a>
-            
-            
-            
-            <a href="/tags/gogs/">
-                <span class="chip center-align waves-effect waves-light chip-default">gogs</span>
+            <a href="/tags/Gogs/">
+                <span class="chip center-align waves-effect waves-light chip-default">Gogs</span>
             </a>
             
             
@@ -718,14 +706,50 @@
             
             
             
-            <a href="/tags/yapi/">
-                <span class="chip center-align waves-effect waves-light chip-default">yapi</span>
+            <a href="/tags/Yapi/">
+                <span class="chip center-align waves-effect waves-light chip-default">Yapi</span>
             </a>
             
             
             
             <a href="/tags/%E9%83%A8%E7%BD%B2/">
                 <span class="chip center-align waves-effect waves-light chip-default">部署</span>
+            </a>
+            
+            
+            
+            <a href="/tags/Homestead/">
+                <span class="chip center-align waves-effect waves-light chip-default">Homestead</span>
+            </a>
+            
+            
+            
+            <a href="/tags/Xdebug/">
+                <span class="chip center-align waves-effect waves-light chip-default">Xdebug</span>
+            </a>
+            
+            
+            
+            <a href="/tags/Mac/">
+                <span class="chip center-align waves-effect waves-light chip-default">Mac</span>
+            </a>
+            
+            
+            
+            <a href="/tags/VirtualBox/">
+                <span class="chip center-align waves-effect waves-light chip-default">VirtualBox</span>
+            </a>
+            
+            
+            
+            <a href="/tags/OpenWRT/">
+                <span class="chip center-align waves-effect waves-light chip-default">OpenWRT</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+                <span class="chip center-align waves-effect waves-light chip-default">虚拟机</span>
             </a>
             
             
@@ -763,7 +787,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">1.1k</span>
+                        class="white-color">2k</span>
             
             
             
