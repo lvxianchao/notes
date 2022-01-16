@@ -1,8 +1,10 @@
 ---
 title: CentOS 8 部署 Yapi
+categories:
+  - 运维
 tags:
-  - centos
-  - yapi
+  - CentOS
+  - Yapi
   - 部署
 abbrlink: 2a8401d8
 date: 2022-01-11 19:26:48

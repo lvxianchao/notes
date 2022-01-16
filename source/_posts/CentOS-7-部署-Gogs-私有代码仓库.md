@@ -1,8 +1,10 @@
 ---
 title: CentOS 7 部署 Gogs 私有代码仓库
+categories:
+  - 运维
 tags:
-  - centos
-  - gogs
+  - CentOS
+  - Gogs
   - 代码仓库
 abbrlink: 7ffb7ac
 date: 2022-01-10 22:24:51
