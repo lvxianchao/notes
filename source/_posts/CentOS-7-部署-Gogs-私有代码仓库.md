@@ -76,7 +76,7 @@ GRANT ALL PRIVILEGES on gogs.* to 'gogs'@'127.0.0.1';
 
 如下是我的配置：
 
-![image-20210812105425086](https://coderlxc-1256179520.file.myqcloud.com/20210812/dI4Ob8.png)
+![](https://coderlxc-1256179520.file.myqcloud.com/20210812/dI4Ob8.png)
 
 ## 把 Gogs 作为服务运行并配置开机自启动
 
