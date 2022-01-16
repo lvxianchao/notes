@@ -18,7 +18,7 @@ date: 2022-01-11 19:26:48
    yum module list nodejs
    ```
 
-    ![image-20210818145614914](https://coderlxc-1256179520.file.myqcloud.com/20210818/BfkYTI.png)
+    ![](https://coderlxc-1256179520.file.myqcloud.com/20210818/BfkYTI.png)
 
 2. 安装默认版本
    
@@ -91,7 +91,7 @@ date: 2022-01-11 19:26:48
 
 3. 填写相关配置信息后，点击`开始部署`，等待完成后记住`管理员邮箱账号`和`密码`
 
-![image-20210818150949211](https://coderlxc-1256179520.file.myqcloud.com/20210818/lWVmYf.png)
+![](https://coderlxc-1256179520.file.myqcloud.com/20210818/lWVmYf.png)
 
 4. 切换到 Yapi 的部署位置启动服务，此时可通过 web 来访问 Yapi 服务了
 
