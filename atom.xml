@@ -6,7 +6,7 @@
   <link href="https://coderlxc.com/atom.xml" rel="self"/>
   
   <link href="https://coderlxc.com/"/>
-  <updated>2022-01-16T03:48:51.841Z</updated>
+  <updated>2022-01-16T03:53:32.619Z</updated>
   <id>https://coderlxc.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解决 VirtualBox 升级导致 Vagrant 无法启动的问题</title>
+    <link href="https://coderlxc.com/77e0579c.html"/>
+    <id>https://coderlxc.com/77e0579c.html</id>
+    <published>2022-01-16T03:51:45.000Z</published>
+    <updated>2022-01-16T03:53:32.619Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天把 VirtualBox 给升级到了 <code>6.1.30</code> 之后，发现 Homestead 无法启动了，报错如下：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">➜  ~ vm upBringing machine <span class="token string">'homestead'</span> up with <span class="token string">'virtualbox'</span> provider<span class="token punctuation">..</span>.<span class="token operator">==</span><span class="token operator">&gt;</span> homestead: Checking <span class="token keyword">if</span> box <span class="token string">'laravel/homestead'</span> version <span class="token string">'11.5.0'</span> is up to date<span class="token punctuation">..</span>.<span class="token operator">==</span><span class="token operator">&gt;</span> homestead: Clearing any previously <span class="token builtin class-name">set</span> network interfaces<span class="token punctuation">..</span>.The IP address configured <span class="token keyword">for</span> the host-only network is not within theallowed ranges. Please update the address used to be within the allowedranges and run the <span class="token builtin class-name">command</span> again.  Address: <span class="token number">192.168</span>.10.10  Ranges: <span class="token number">192.168</span>.56.0/21Valid ranges can be modified <span class="token keyword">in</span> the /etc/vbox/networks.conf file. For<span class="token function">more</span> information including valid <span class="token function">format</span> see:  https://www.virtualbox.org/manual/ch06.html<span class="token comment">#network_hostonly</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>去到 <code>https://www.virtualbox.org/manual/ch06.html#network_hostonly</code> 这个地址已经给出了相关的解决办法：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token function">sudo</span> <span class="token function">mkdir</span> /etc/vbox<span class="token function">sudo</span> <span class="token function">vim</span> /etc/vbox/networks.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>并将以下内容写入到 <code>/etc/vbox/networks.conf</code> 即可解决：</p><pre class="line-numbers language-none"><code class="language-none">* 10.0.0.0/8 192.168.0.0/16* 2001::/64<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161129832.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;今天把 VirtualBox 给升级到了 &lt;code&gt;6.1.30&lt;/code&gt; 之后，发现 Homestead 无法启动了，报错如下：&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-shell&quot; data-language=&quot;shell&quot;&gt;&lt;</summary>
+      
+    
+    
+    
+    <category term="排错" scheme="https://coderlxc.com/categories/%E6%8E%92%E9%94%99/"/>
+    
+    
+    <category term="Homestead" scheme="https://coderlxc.com/tags/Homestead/"/>
+    
+    <category term="VirtualBox" scheme="https://coderlxc.com/tags/VirtualBox/"/>
+    
+    <category term="Vagrant" scheme="https://coderlxc.com/tags/Vagrant/"/>
+    
+  </entry>
   
   <entry>
     <title>MacOS 上使用 VirtualBox 安装 OpenWRT</title>
