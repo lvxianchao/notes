@@ -14,7 +14,7 @@
       
         <tags>
             
-            <tag> ubuntu </tag>
+            <tag> Ubuntu </tag>
             
         </tags>
       
@@ -41,6 +41,8 @@
             
             <tag> Gogs </tag>
             
+            <tag> 代码仓库 </tag>
+            
             <tag> WebHook </tag>
             
         </tags>
@@ -66,9 +68,9 @@
       
         <tags>
             
-            <tag> VirtualBox </tag>
-            
             <tag> Homestead </tag>
+            
+            <tag> VirtualBox </tag>
             
             <tag> Vagrant </tag>
             
@@ -95,13 +97,13 @@
       
         <tags>
             
+            <tag> Mac </tag>
+            
             <tag> VirtualBox </tag>
             
             <tag> OpenWRT </tag>
             
             <tag> 虚拟机 </tag>
-            
-            <tag> Mac </tag>
             
         </tags>
       
@@ -126,11 +128,11 @@
       
         <tags>
             
-            <tag> 部署 </tag>
-            
             <tag> CentOS </tag>
             
             <tag> Yapi </tag>
+            
+            <tag> 部署 </tag>
             
         </tags>
       
@@ -155,11 +157,11 @@
       
         <tags>
             
-            <tag> 代码仓库 </tag>
-            
             <tag> CentOS </tag>
             
             <tag> Gogs </tag>
+            
+            <tag> 代码仓库 </tag>
             
         </tags>
       

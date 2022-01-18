@@ -6,7 +6,7 @@
   <link href="https://coderlxc.com/atom.xml" rel="self"/>
   
   <link href="https://coderlxc.com/"/>
-  <updated>2022-01-18T14:25:33.972Z</updated>
+  <updated>2022-01-18T14:29:16.002Z</updated>
   <id>https://coderlxc.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://coderlxc.com/7be7930f.html"/>
     <id>https://coderlxc.com/7be7930f.html</id>
     <published>2022-01-18T14:22:45.000Z</published>
-    <updated>2022-01-18T14:25:33.972Z</updated>
+    <updated>2022-01-18T14:29:16.002Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Ubuntu-20-04-更改系统时区"><a href="#Ubuntu-20-04-更改系统时区" class="headerlink" title="Ubuntu 20.04 更改系统时区"></a>Ubuntu 20.04 更改系统时区</h2><p>可以使用 <code>date -R</code> 查看当前系统时间。</p><p>运行 <code>tzselect</code>。</p><ol><li><p>选择亚洲</p></li><li><p>选择国家和城市</p></li><li><p>确认</p></li><li><p>最后执行 <code>sudo cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code> 覆盖配置。</p></li><li><p>再次执行 <code>date -R</code> 检查结果。</p></li></ol>]]></content>
     
@@ -34,7 +34,7 @@
     
     
     
-    <category term="ubuntu" scheme="https://coderlxc.com/tags/ubuntu/"/>
+    <category term="Ubuntu" scheme="https://coderlxc.com/tags/Ubuntu/"/>
     
   </entry>
   
@@ -43,7 +43,7 @@
     <link href="https://coderlxc.com/b141a6da.html"/>
     <id>https://coderlxc.com/b141a6da.html</id>
     <published>2022-01-18T14:14:30.000Z</published>
-    <updated>2022-01-18T14:16:04.496Z</updated>
+    <updated>2022-01-18T14:29:02.533Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Gogs-部署-Webhook"><a href="#Gogs-部署-Webhook" class="headerlink" title="Gogs 部署 Webhook"></a>Gogs 部署 Webhook</h1><p>Gogs 同时支持 Git 和 Web 方式的钩子，Git 方式比较适合 Gogs 代码仓库和项目部署在同一台服务器上的情况，Web 钩子适合代码仓库和项目部署在不同服务器上的情况。无论是哪种情况，Web 钩子都可以做到，相比于 Git 钩子，Web 钩子要稍微麻烦一点，因为是跨服务器的，需要写脚本，调用接口。</p><p>假设我的 Gogs 服务器部署在 A 服务器上，然后项目部署在 B 服务器上，那么配置好 Gogs 的 Web 钩子以后，仓库在收到了你订阅的操作以后，会调用你配置的接口地址（这个接口应该是 B 服务器提供），把相关信息以 API 的方式推送给 B，然后 B 服务器在收到 API 推送请求以后，应该根据情况，如仓库、分支、事件等进行相关逻辑操作。</p><p>Gogs 的 Web 钩子配置的地方在 <code>仓库设置 -&gt; 管理 Web 钩子</code>，在<code>添加新的 Web 钩子</code>处选择 <code>Gogs</code>：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201182213448.png"></p><p>在之后跳出来的页面里配置上<code>推送地址</code>、和 <code>密钥文本</code> 后点击 <code>添加 Web 钩子</code>，会提示添加钩子成功，再次点击钩子名称可以编辑钩子。</p><p>在编辑钩子的页面的底部，可以查看到<code>推送记录</code>和进行<code>测试推送</code>。</p><p>这里我以本机为例，在 Nginx 中配置一个 <code>vhost</code> 监听 <code>8080 </code>端口并把请求转发给 PHP 来处理，下面是 PHP 脚本里的内容：</p><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span><span class="token variable">$request_body</span> <span class="token operator">=</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"php://input"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">empty</span><span class="token punctuation">(</span><span class="token variable">$request_body</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'received request body is empty.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token variable">$content</span> <span class="token operator">=</span> <span class="token function">json_decode</span><span class="token punctuation">(</span><span class="token variable">$request_body</span><span class="token punctuation">,</span> <span class="token constant boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token variable">$content</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'repository'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token comment">// 匹配项目名称</span>    <span class="token keyword">case</span> <span class="token string single-quoted-string">'gogs-webhook-test'</span><span class="token punctuation">:</span>        <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token variable">$content</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'ref'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>            <span class="token comment">// 匹配分支</span>            <span class="token keyword">case</span> <span class="token string single-quoted-string">'refs/heads/master'</span><span class="token punctuation">:</span>            <span class="token comment">// 要执行的操作：进入到项目所在目录，拉取最新代码。</span>                <span class="token function">exec</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"cd /home/wwwroot/gogs-webhook-test/ &amp;&amp; git pull origin master"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                <span class="token keyword">break</span><span class="token punctuation">;</span>            <span class="token keyword">default</span><span class="token punctuation">:</span>                <span class="token keyword">break</span><span class="token punctuation">;</span>        <span class="token punctuation">}</span>        <span class="token keyword">break</span><span class="token punctuation">;</span>    <span class="token keyword">default</span><span class="token punctuation">:</span>        <span class="token keyword">break</span><span class="token punctuation">;</span><span class="token punctuation">}</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>在测试推送之前，可以先准备一下部署密钥，方便部署。先给 <code>www</code> 用户安排上密钥，输入以下命令一路回车即可：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> -Hu www ssh-keygen -t rsa<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>然后查看一下公钥内容，并复制下来：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> /home/www/.ssh/id_rsa.pub<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在 Gogs 的 <code>仓库设置</code>中，点击<code>管理部署密钥</code>，点击<code>添加部署密钥</code>，标题起个有意义的，有分区度的比如：<code>XX 服务器 www 用户</code> 这种，然后把刚刚复制下来的公钥内容填入到<code>密钥文本</code>中点击下方的<code>添加部署密钥</code>。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201182213315.png"></p><p>接下来，以 <code>www</code> 用户的身份把项目克隆到服务器上，然后随便做点什么更改便可观察测试是否有自动拉取最新的代码。如果禁用 <code>exec()</code> 函数等，一定要解禁。</p>]]></content>
     
@@ -59,6 +59,8 @@
     
     
     <category term="Gogs" scheme="https://coderlxc.com/tags/Gogs/"/>
+    
+    <category term="代码仓库" scheme="https://coderlxc.com/tags/%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/"/>
     
     <category term="WebHook" scheme="https://coderlxc.com/tags/WebHook/"/>
     
@@ -85,9 +87,9 @@
     <category term="排错" scheme="https://coderlxc.com/categories/%E6%8E%92%E9%94%99/"/>
     
     
-    <category term="VirtualBox" scheme="https://coderlxc.com/tags/VirtualBox/"/>
-    
     <category term="Homestead" scheme="https://coderlxc.com/tags/Homestead/"/>
+    
+    <category term="VirtualBox" scheme="https://coderlxc.com/tags/VirtualBox/"/>
     
     <category term="Vagrant" scheme="https://coderlxc.com/tags/Vagrant/"/>
     
@@ -118,13 +120,13 @@
     <category term="折腾" scheme="https://coderlxc.com/categories/%E6%8A%98%E8%85%BE/"/>
     
     
+    <category term="Mac" scheme="https://coderlxc.com/tags/Mac/"/>
+    
     <category term="VirtualBox" scheme="https://coderlxc.com/tags/VirtualBox/"/>
     
     <category term="OpenWRT" scheme="https://coderlxc.com/tags/OpenWRT/"/>
     
     <category term="虚拟机" scheme="https://coderlxc.com/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
-    
-    <category term="Mac" scheme="https://coderlxc.com/tags/Mac/"/>
     
   </entry>
   
@@ -150,11 +152,11 @@
     <category term="运维" scheme="https://coderlxc.com/categories/%E8%BF%90%E7%BB%B4/"/>
     
     
-    <category term="部署" scheme="https://coderlxc.com/tags/%E9%83%A8%E7%BD%B2/"/>
-    
     <category term="CentOS" scheme="https://coderlxc.com/tags/CentOS/"/>
     
     <category term="Yapi" scheme="https://coderlxc.com/tags/Yapi/"/>
+    
+    <category term="部署" scheme="https://coderlxc.com/tags/%E9%83%A8%E7%BD%B2/"/>
     
   </entry>
   
@@ -181,11 +183,11 @@
     <category term="运维" scheme="https://coderlxc.com/categories/%E8%BF%90%E7%BB%B4/"/>
     
     
-    <category term="代码仓库" scheme="https://coderlxc.com/tags/%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/"/>
-    
     <category term="CentOS" scheme="https://coderlxc.com/tags/CentOS/"/>
     
     <category term="Gogs" scheme="https://coderlxc.com/tags/Gogs/"/>
+    
+    <category term="代码仓库" scheme="https://coderlxc.com/tags/%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93/"/>
     
   </entry>
   
