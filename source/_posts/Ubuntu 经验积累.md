@@ -1,7 +1,7 @@
 ---
 title: Ubuntu 经验积累
 tags:
-  - ubuntu
+  - Ubuntu
 abbrlink: 7be7930f
 date: 2022-01-18 22:22:45
 ---
