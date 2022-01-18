@@ -4,6 +4,52 @@
   
     
     <entry>
+      <title>Ubuntu 经验积累</title>
+      <link href="/7be7930f.html"/>
+      <url>/7be7930f.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="Ubuntu-20-04-更改系统时区"><a href="#Ubuntu-20-04-更改系统时区" class="headerlink" title="Ubuntu 20.04 更改系统时区"></a>Ubuntu 20.04 更改系统时区</h2><p>可以使用 <code>date -R</code> 查看当前系统时间。</p><p>运行 <code>tzselect</code>。</p><ol><li><p>选择亚洲</p></li><li><p>选择国家和城市</p></li><li><p>确认</p></li><li><p>最后执行 <code>sudo cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code> 覆盖配置。</p></li><li><p>再次执行 <code>date -R</code> 检查结果。</p></li></ol>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Gogs 部署 WebHook</title>
+      <link href="/b141a6da.html"/>
+      <url>/b141a6da.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="Gogs-部署-Webhook"><a href="#Gogs-部署-Webhook" class="headerlink" title="Gogs 部署 Webhook"></a>Gogs 部署 Webhook</h1><p>Gogs 同时支持 Git 和 Web 方式的钩子，Git 方式比较适合 Gogs 代码仓库和项目部署在同一台服务器上的情况，Web 钩子适合代码仓库和项目部署在不同服务器上的情况。无论是哪种情况，Web 钩子都可以做到，相比于 Git 钩子，Web 钩子要稍微麻烦一点，因为是跨服务器的，需要写脚本，调用接口。</p><p>假设我的 Gogs 服务器部署在 A 服务器上，然后项目部署在 B 服务器上，那么配置好 Gogs 的 Web 钩子以后，仓库在收到了你订阅的操作以后，会调用你配置的接口地址（这个接口应该是 B 服务器提供），把相关信息以 API 的方式推送给 B，然后 B 服务器在收到 API 推送请求以后，应该根据情况，如仓库、分支、事件等进行相关逻辑操作。</p><p>Gogs 的 Web 钩子配置的地方在 <code>仓库设置 -&gt; 管理 Web 钩子</code>，在<code>添加新的 Web 钩子</code>处选择 <code>Gogs</code>：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201182213448.png"></p><p>在之后跳出来的页面里配置上<code>推送地址</code>、和 <code>密钥文本</code> 后点击 <code>添加 Web 钩子</code>，会提示添加钩子成功，再次点击钩子名称可以编辑钩子。</p><p>在编辑钩子的页面的底部，可以查看到<code>推送记录</code>和进行<code>测试推送</code>。</p><p>这里我以本机为例，在 Nginx 中配置一个 <code>vhost</code> 监听 <code>8080 </code>端口并把请求转发给 PHP 来处理，下面是 PHP 脚本里的内容：</p><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span><span class="token variable">$request_body</span> <span class="token operator">=</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"php://input"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">empty</span><span class="token punctuation">(</span><span class="token variable">$request_body</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'received request body is empty.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token variable">$content</span> <span class="token operator">=</span> <span class="token function">json_decode</span><span class="token punctuation">(</span><span class="token variable">$request_body</span><span class="token punctuation">,</span> <span class="token constant boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token variable">$content</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'repository'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token comment">// 匹配项目名称</span>    <span class="token keyword">case</span> <span class="token string single-quoted-string">'gogs-webhook-test'</span><span class="token punctuation">:</span>        <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token variable">$content</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'ref'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>            <span class="token comment">// 匹配分支</span>            <span class="token keyword">case</span> <span class="token string single-quoted-string">'refs/heads/master'</span><span class="token punctuation">:</span>            <span class="token comment">// 要执行的操作：进入到项目所在目录，拉取最新代码。</span>                <span class="token function">exec</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"cd /home/wwwroot/gogs-webhook-test/ &amp;&amp; git pull origin master"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                <span class="token keyword">break</span><span class="token punctuation">;</span>            <span class="token keyword">default</span><span class="token punctuation">:</span>                <span class="token keyword">break</span><span class="token punctuation">;</span>        <span class="token punctuation">}</span>        <span class="token keyword">break</span><span class="token punctuation">;</span>    <span class="token keyword">default</span><span class="token punctuation">:</span>        <span class="token keyword">break</span><span class="token punctuation">;</span><span class="token punctuation">}</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>在测试推送之前，可以先准备一下部署密钥，方便部署。先给 <code>www</code> 用户安排上密钥，输入以下命令一路回车即可：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> -Hu www ssh-keygen -t rsa<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>然后查看一下公钥内容，并复制下来：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> /home/www/.ssh/id_rsa.pub<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在 Gogs 的 <code>仓库设置</code>中，点击<code>管理部署密钥</code>，点击<code>添加部署密钥</code>，标题起个有意义的，有分区度的比如：<code>XX 服务器 www 用户</code> 这种，然后把刚刚复制下来的公钥内容填入到<code>密钥文本</code>中点击下方的<code>添加部署密钥</code>。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201182213315.png"></p><p>接下来，以 <code>www</code> 用户的身份把项目克隆到服务器上，然后随便做点什么更改便可观察测试是否有自动拉取最新的代码。如果禁用 <code>exec()</code> 函数等，一定要解禁。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Gogs </tag>
+            
+            <tag> WebHook </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>解决 VirtualBox 升级导致 Vagrant 无法启动的问题</title>
       <link href="/77e0579c.html"/>
       <url>/77e0579c.html</url>
@@ -20,9 +66,9 @@
       
         <tags>
             
-            <tag> Homestead </tag>
-            
             <tag> VirtualBox </tag>
+            
+            <tag> Homestead </tag>
             
             <tag> Vagrant </tag>
             
@@ -49,13 +95,13 @@
       
         <tags>
             
-            <tag> Mac </tag>
-            
             <tag> VirtualBox </tag>
             
             <tag> OpenWRT </tag>
             
             <tag> 虚拟机 </tag>
+            
+            <tag> Mac </tag>
             
         </tags>
       
@@ -80,11 +126,11 @@
       
         <tags>
             
+            <tag> 部署 </tag>
+            
             <tag> CentOS </tag>
             
             <tag> Yapi </tag>
-            
-            <tag> 部署 </tag>
             
         </tags>
       
@@ -109,11 +155,11 @@
       
         <tags>
             
+            <tag> 代码仓库 </tag>
+            
             <tag> CentOS </tag>
             
             <tag> Gogs </tag>
-            
-            <tag> 代码仓库 </tag>
             
         </tags>
       
