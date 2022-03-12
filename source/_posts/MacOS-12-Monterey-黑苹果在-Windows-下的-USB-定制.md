@@ -62,7 +62,7 @@ Type C 的设备需要正反两面都插拔一次。
 
 回到了菜单界面，输入 `S` 并回车会看到整体 USB 识别情况。
 
-![image-20220312133824842](C:\Users\lvxc\Desktop\笔记\MacOS Montery 黑苹果在 Windows 下的 USB 定制.assets\image-20220312133824842.png)
+![](https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130029493.png)
 
 输入 `K` 并回车，会看到生成了 `UTBMap.kext` 文件和其所在的路径，默认会放到 `下载` 目录下。
 
