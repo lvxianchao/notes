@@ -25,7 +25,7 @@ date: 2022-03-13 00:23:11
 * [USBToolBox](https://github.com/USBToolBox)
   * [tool](https://github.com/USBToolBox/tool) 用来做 USB 定制并生成 `kext` 文件。
   * [kext](https://github.com/USBToolBox/kext) 定制出来的 `kext` 文件需要依赖于这个。
-* [ProperTree]([corpnewt/ProperTree: Cross platform GUI plist editor written in python. (github.com)](https://github.com/corpnewt/ProperTree)) 用来编辑 `config.plist` 文件。
+* [ProperTree](https://github.com/corpnewt/ProperTree) 用来编辑 `config.plist` 文件。
 * [DiskGenius](https://www.diskgenius.cn/) 用来操作黑苹果的 EFI 里的文件。
 * [Python 3](https://www.python.org/) ProperTree 是 Python 写的，需要安装。
 * 一个 USB 2.0 设备，如 U 盘、鼠标、键盘等。
