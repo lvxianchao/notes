@@ -426,10 +426,10 @@ ZSH
 <h2 id="Git-for-Windows"><a href="#Git-for-Windows" class="headerlink" title="Git for Windows"></a>Git for Windows</h2><p><a target="_blank" rel="noopener" href="https://git-scm.com/download/win">Git for Windows</a> 在安装的时候可以选择安装 Git Bash，我只安装了 Git Bash。</p>
 <h2 id="ZSH"><a href="#ZSH" class="headerlink" title="ZSH"></a>ZSH</h2><p>安装 ZSH 要稍微麻烦一些，前往 <a target="_blank" rel="noopener" href="https://packages.msys2.org/package/zsh?repo=msys&amp;variant=x86_64">这个地址</a> 下载压缩包，可以看到这是一个 <code>zst</code> 格式的压缩包，如果你的解压软件不支持这个格式，还需要额外安装一个针对这种格式的解压工具 <a target="_blank" rel="noopener" href="https://peazip.github.io/peazip-64bit.html">PeaZip</a>。</p>
 <p>因为受限于环境限制，无法在本机上安装 PeaZip，所以我是在 Ubuntu 虚拟机里安装了相关的解压缩工具，解压完成后弄到 Windows 10 物理机下。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 安装 zstd
-sudo apt install -y zstd
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装 zstd</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> -y zstd
 
-# 解压
+<span class="token comment"># 解压</span>
 zstd -d zsh-5.8-5-x86_64.pkg.tar.zst<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/imagesimage-20220311111441169.png"></p>
@@ -438,7 +438,7 @@ zstd -d zsh-5.8-5-x86_64.pkg.tar.zst<span aria-hidden="true" class="line-numbers
 <p>解压出来的目录里，把 <code>zsh.exe</code> 删除掉，并把 <code>zsh-5.8.exe</code> 重命名为 <code>zsh.exe</code>，因为原来的 <code>zsh.exe</code> 大小为 <code>0</code>，Git Bash 里使用 ZSH 无法生效，调整后把整个文件夹复制到 Git 的安装目录下，比如我的 Git 安装在 <code>D:\Program Files\Git</code> 。</p>
 <p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/imagesimage-20220311112936556.png"></p>
 <h2 id="Oh-My-Zsh"><a href="#Oh-My-Zsh" class="headerlink" title="Oh My Zsh"></a>Oh My Zsh</h2><p>执行以下命令安装：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sh</span> -c <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh<span class="token variable">)</span></span>"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="zsh-autosuggestions"><a href="#zsh-autosuggestions" class="headerlink" title="zsh-autosuggestions"></a>zsh-autosuggestions</h3><p>On My Zsh 自带了 Git 的插件，但我个人使用至少还需要一个插件：<a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-autosuggestions">zsh-autosuggestions</a>，这个插件可以<strong>提示曾经使用过的命令并自动完成</strong>，非常好用。</p>
 <p>安装说明可以查看 <a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md">Github</a> 。</p>
