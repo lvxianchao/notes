@@ -6,7 +6,7 @@
   <link href="https://coderlxc.com/atom.xml" rel="self"/>
   
   <link href="https://coderlxc.com/"/>
-  <updated>2022-03-12T16:33:58.453Z</updated>
+  <updated>2022-03-16T15:22:41.197Z</updated>
   <id>https://coderlxc.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>腾讯云轻量服务器 root 账户远程连接</title>
+    <link href="https://coderlxc.com/6765f8ce.html"/>
+    <id>https://coderlxc.com/6765f8ce.html</id>
+    <published>2022-03-16T15:22:07.000Z</published>
+    <updated>2022-03-16T15:22:41.197Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="腾讯云轻量服务器使用-root-远程连接"><a href="#腾讯云轻量服务器使用-root-远程连接" class="headerlink" title="腾讯云轻量服务器使用 root 远程连接"></a>腾讯云轻量服务器使用 root 远程连接</h1><p>今天在使用腾讯云轻量服务器的时候，安装的是 CentOS 7.6 的操作系统，发现安装完以后使用自带的网页版远程连接工作登录上去是一个叫 <code>lighthouse</code> 的用户，并且在我本地机器上无法使用 <code>root</code> 账户远程连接，大概意思没有权限。</p><h2 id="更改-root-用户密码"><a href="#更改-root-用户密码" class="headerlink" title="更改 root 用户密码"></a>更改 root 用户密码</h2><p>在提供的网页版远程连接上去以后执行 <code>sudo -i</code> 切换到 <code>root</code> 账户，并执行 <code>passwd</code> 修改密码。</p><h2 id="开启-root-用户的远程连接"><a href="#开启-root-用户的远程连接" class="headerlink" title="开启 root 用户的远程连接"></a>开启 root 用户的远程连接</h2><p>编辑 <code>sshd</code> 服务的配置文件：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> /etc/ssh/sshd_config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>打开 <code>PermitRootLogin yes</code>,将 <code>PasswordAuthentication</code> 的值修改为 <code>yes</code>，保存退出。</p><p>重启 <code>sshd</code> 服务：</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl restart sshd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;腾讯云轻量服务器使用-root-远程连接&quot;&gt;&lt;a href=&quot;#腾讯云轻量服务器使用-root-远程连接&quot; class=&quot;headerlink&quot; title=&quot;腾讯云轻量服务器使用 root 远程连接&quot;&gt;&lt;/a&gt;腾讯云轻量服务器使用 root 远程连接&lt;/h1&gt;&lt;</summary>
+      
+    
+    
+    
+    
+    <category term="CentOS" scheme="https://coderlxc.com/tags/CentOS/"/>
+    
+  </entry>
   
   <entry>
     <title>MacOS 12 Monterey 黑苹果在 Windows 下的 USB 定制</title>
