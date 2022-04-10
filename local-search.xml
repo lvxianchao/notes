@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Jetbrains Code With Me 私有部署</title>
+    <link href="/8e1b3a1e.html"/>
+    <url>/8e1b3a1e.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="Jetbrains-Code-With-Me-私有部署"><a href="#Jetbrains-Code-With-Me-私有部署" class="headerlink" title="Jetbrains Code With Me 私有部署"></a>Jetbrains Code With Me 私有部署</h1><blockquote><p>最近因为疫情的原因在家办公，通过 VPN + Remote Desktop 的方式在公司的电脑上写代码，延迟非常大，严重影响效率。</p><p>资源地址：<a href="https://www.jetbrains.com/zh-cn/code-with-me/on-prem/">https://www.jetbrains.com/zh-cn/code-with-me/on-prem/</a></p></blockquote><p>我想起了 <code>Code With Me</code> 这个东西，于是试用了一下感觉还不错，但因为默认的服务器是 Jetbrains 的，网络原因会导致有时候也会卡，于是就想着试试用我自己在国内的服务器搭建一个私有的服务器试试效果如何，结果体验下来非常棒，网络延迟基本感觉不到，记录一下。</p><p>在 <code>Code With Me</code> 的设置里可以看到，默认使用的服务器是 Jetbrains 的，我们只需要把这个 <code>大厅服务器 URL </code>替换成自己的就行了。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202204101159820.png"></p><p>在 <code>资源地址  </code>里，点击 <code>注册免费试用</code>，填写表单提交以后，会收到 Jetbrains 发来的邮件。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202204101208752.png"></p><p>邮件里包含服务器的搭建文档和两个附件，附件里有一个 <code>.key</code> 结尾的许可证文件，下载下来，搭建服务器的时候需要用到。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202204101206909.png"></p><p>远程登录到服务器上，把 <code>资源地址</code> 里的 <code>快速设置启动器</code> 里的 <code>Linux x86-64.tar.gz</code> 文件包下载下来并解压，我这里的解压以后的文件夹名称是 <code>code-with-me-quick-setup-1744</code>，进入到这个文件夹里，把从邮件里下载到 <code>key</code> 文件上传到这个文件夹中。</p><p>运行以下命令便可以启动服务器，需要把 <code>服务器 IP</code> 和 <code>Code_With_Me_Enterprise-XXXXXXX.key</code> 换成你自己的：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">./launch.sh -h 服务器 IP -k Code_With_Me_Enterprise-XXXXXXX.key<br></code></pre></td></tr></tbody></table></figure><p>服务运行起来以后，把 IDE 的 <code>大厅服务器 URL</code> 替换成：<code>http://服务器IP:2093</code> 就可以了。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Jetbrains</tag>
+      
+      <tag>Code With Me</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>腾讯云轻量服务器 root 账户远程连接</title>
+    <link href="/6765f8ce.html"/>
+    <url>/6765f8ce.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="腾讯云轻量服务器使用-root-远程连接"><a href="#腾讯云轻量服务器使用-root-远程连接" class="headerlink" title="腾讯云轻量服务器使用 root 远程连接"></a>腾讯云轻量服务器使用 root 远程连接</h1><p>今天在使用腾讯云轻量服务器的时候，安装的是 CentOS 7.6 的操作系统，发现安装完以后使用自带的网页版远程连接工作登录上去是一个叫 <code>lighthouse</code> 的用户，并且在我本地机器上无法使用 <code>root</code> 账户远程连接，大概意思没有权限。</p><h2 id="更改-root-用户密码"><a href="#更改-root-用户密码" class="headerlink" title="更改 root 用户密码"></a>更改 root 用户密码</h2><p>在提供的网页版远程连接上去以后执行 <code>sudo -i</code> 切换到 <code>root</code> 账户，并执行 <code>passwd</code> 修改密码。</p><h2 id="开启-root-用户的远程连接"><a href="#开启-root-用户的远程连接" class="headerlink" title="开启 root 用户的远程连接"></a>开启 root 用户的远程连接</h2><p>编辑 <code>sshd</code> 服务的配置文件：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">vim /etc/ssh/sshd_config<br></code></pre></td></tr></tbody></table></figure><p>打开 <code>PermitRootLogin yes</code>,将 <code>PasswordAuthentication</code> 的值修改为 <code>yes</code>，保存退出。</p><p>重启 <code>sshd</code> 服务：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl restart sshd<br></code></pre></td></tr></tbody></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>CentOS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>MacOS 12 Monterey 黑苹果在 Windows 下的 USB 定制</title>
+    <link href="/cc238e6d.html"/>
+    <url>/cc238e6d.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="MacOS-12-Monterey-黑苹果在-Windows-下的-USB-定制"><a href="#MacOS-12-Monterey-黑苹果在-Windows-下的-USB-定制" class="headerlink" title="MacOS 12 Monterey 黑苹果在 Windows 下的 USB 定制"></a>MacOS 12 Monterey 黑苹果在 Windows 下的 USB 定制</h1><blockquote><p>2022 年春节以后，我把以前的黑苹果从 11 升级到了 12，睡眠问题一直存在，经常会 <strong>半夜的时候自动唤醒，然后风扇疯狂地转动，但显示器就是不亮，鼠标和键盘也无法唤醒，只能强制关机或者直接断电重新开机</strong>，相当烦，但一直懒得没动。</p><p>最近，因为疫情的原因导致需要在家里办公，需要先连接 VPN，然后使用 Microsoft Remote Desktop 远程连接到公司的 Windows 10 电脑上去，中间过程还挺麻烦的，我不想因为睡眠问题总是需要断电重启，于是今天折腾一下，把 USB 定制给解决掉，看看能不能修复我的黑苹果睡眠问题。</p><p>因为在 MacOS 12 上 <code>XhciPortLimit</code> 无法使用，所以才选择在 Windows 10 上来做 USB 定制。</p></blockquote><h2 id="用到的工具"><a href="#用到的工具" class="headerlink" title="用到的工具"></a>用到的工具</h2><ul><li><a href="https://github.com/USBToolBox">USBToolBox</a><ul><li><a href="https://github.com/USBToolBox/tool">tool</a> 用来做 USB 定制并生成 <code>kext</code> 文件。</li><li><a href="https://github.com/USBToolBox/kext">kext</a> 定制出来的 <code>kext</code> 文件需要依赖于这个。</li></ul></li><li><a href="https://github.com/corpnewt/ProperTree">ProperTree</a> 用来编辑 <code>config.plist</code> 文件。</li><li><a href="https://www.diskgenius.cn/">DiskGenius</a> 用来操作黑苹果的 EFI 里的文件。</li><li><a href="https://www.python.org/">Python 3</a> ProperTree 是 Python 写的，需要安装。</li><li>一个 USB 2.0 设备，如 U 盘、鼠标、键盘等。</li><li>一个 USB 3.0 以上的设备，如 U 盘、移动硬盘等。</li><li>一个 Type C 的设备，如手机等（我的主板是华硕的 <code>z390-i</code>，后面板上有一个 USB C，如果你的主板没有，可以忽略）。</li></ul><h2 id="生成-USB-定制文件"><a href="#生成-USB-定制文件" class="headerlink" title="生成 USB 定制文件"></a>生成 USB 定制文件</h2><h3 id="下载-USBToolBox-tool"><a href="#下载-USBToolBox-tool" class="headerlink" title="下载 USBToolBox - tool"></a>下载 USBToolBox - tool</h3><p>直接在 <a href="https://github.com/USBToolBox/tool/releases">Releases · USBToolBox/tool </a> 里下载最新版本的 <code>Windows.exe</code>，我当前的最新的版本是 <code>0.1.1</code>。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130018973.png"></p><h3 id="识别接口"><a href="#识别接口" class="headerlink" title="识别接口"></a>识别接口</h3><p>打开 <code>Windows.exe</code>，如下图所示，输入 <code>D</code> 并回车，大小写没关系。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130018126.png"></p><p>接下来的界面会每 5 秒刷新一次，<strong>绿色</strong>代表当前已经插入的设备，<strong>蓝色</strong>代表刚刚已经识别到的并且已经拔出的设备。</p><p>首先将 2.0 设备插入每一个接口，并等待界面刷新，看到有新的绿色的条目出现，再拔出。</p><p>3.0 的设备重复一次。</p><p>Type C 的设备需要正反两面都插拔一次。</p><p>操作好以后，输入 <code>B</code> 并回车。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130019823.png"></p><h3 id="生成-UTBMap-kext-文件"><a href="#生成-UTBMap-kext-文件" class="headerlink" title="生成 UTBMap.kext 文件"></a>生成 UTBMap.kext 文件</h3><p>回到了菜单界面，输入 <code>S</code> 并回车会看到整体 USB 识别情况。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130029493.png"></p><p>输入 <code>K</code> 并回车，会看到生成了 <code>UTBMap.kext</code> 文件和其所在的路径，默认会放到 <code>下载</code> 目录下。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130019304.png"></p><h3 id="编辑-UTBMap-kext"><a href="#编辑-UTBMap-kext" class="headerlink" title="编辑 UTBMap.kext"></a>编辑 UTBMap.kext</h3><p>因为苹果对 USB 接口的数量限制到了 15 个，所以接下来需要编辑 <code>UTBMap.kext</code> 里接口，多于 15 的话需要删除。</p><p>我这里因为正好满足 15 个接口，无法演示，可以另行搜索相关资料。</p><p>如果你和我一样没有大于 15 个则可以跳过这一步。</p><h2 id="下载-USBToolBox-kext"><a href="#下载-USBToolBox-kext" class="headerlink" title="下载 USBToolBox - kext"></a>下载 USBToolBox - kext</h2><p>在 <a href="https://github.com/USBToolBox/kext/releases">Github</a> 里下载最新的 <code>release</code> 版本。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130019021.png"></p><p>将压缩包里的 <code>USBToolBox.kext</code> 解压出来和刚刚生成的 <code>UTBMap.kext</code> 放在一起，以便稍后使用。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130020427.png"></p><h2 id="更新-EFI"><a href="#更新-EFI" class="headerlink" title="更新 EFI"></a>更新 EFI</h2><h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><p>下载安装 <a href="https://www.diskgenius.cn/">DiskGenius</a> 并打开，将左侧 EFI 分区里的 EFI 文件夹，右键 <code>复制到桌面</code> 进行备份，也可以选择其它位置。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130020288.png"></p><h3 id="添加-kext-文件"><a href="#添加-kext-文件" class="headerlink" title="添加 kext 文件"></a>添加 kext 文件</h3><p>将刚刚准备好的 <code>USBToolBox.kext</code> 和 <code>UTBMap.kext</code> 通过 DiskGenius 复制到 <code>EFI/OC/Kexts </code> 目录下。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130021950.png"></p><h3 id="编辑-config-plist"><a href="#编辑-config-plist" class="headerlink" title="编辑 config.plist"></a>编辑 config.plist</h3><p>将 OC 文件夹下的 <code>config.plist</code> 文件，右键 <code>复制到桌面</code>。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130021393.png"></p><p>使用 ProperTree 打开已经复制到桌面的 <code>config.plist</code> ，先全部折叠起来。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130021650.png"></p><p>依次打开 <code>Root -&gt; Kernel -&gt; Add</code>，找到最后一个条目，复制粘贴两次，并按照下图中我第 <code>9</code> 、<code>10</code> 号元素那样编辑好，保存。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130021398.png"></p><p>在同级条目里找到 <code>USBInjectAll.kext</code> 并将 <code>Enabled</code> 设置为 <code>False</code>。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130022032.png"></p><p>在 <code>Add</code> 的同级条目 <code>Quirks</code> 下，找到 <code>XhciPortLimit</code> 将其设置为 <code>False</code>。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202203130022569.png"></p><p>将保存好的 <code>config.plist</code> 文件替换回去，重启到 MacOS 观察各个 USB 接口的识别情况和速率。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>黑苹果</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MacOS</tag>
+      
+      <tag>黑苹果</tag>
+      
+      <tag>USBToolBox</tag>
+      
+      <tag>ProperTree</tag>
+      
+      <tag>DiskGenius</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Windows 10 下的终端改善</title>
+    <link href="/ede84cf5.html"/>
+    <url>/ede84cf5.html</url>
+    
+    <content type="html"><![CDATA[<p>个人习惯了 Mac 作为开发环境，但在某些环境下只能使用 Windows 10，感觉 Windows 10 对开发者非常不友好，尤其是终端，于是就稍微折腾改善一下，提升使用体验。</p><p>目前采用以下工具：</p><ul><li>Tabby</li><li>Git Bash</li><li>ZSH</li><li>OhMyZsh</li></ul><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/imagesimage-20220311105634219.png"></p><p>很多人喜欢用 Windows Terminal 作为 Git Bash 的壳，我个人感觉它没有 Tabby 好用，Tabby 全方位碾压 Windows Terminal。</p><h2 id="Git-for-Windows"><a href="#Git-for-Windows" class="headerlink" title="Git for Windows"></a>Git for Windows</h2><p><a href="https://git-scm.com/download/win">Git for Windows</a> 在安装的时候可以选择安装 Git Bash，我只安装了 Git Bash。</p><h2 id="ZSH"><a href="#ZSH" class="headerlink" title="ZSH"></a>ZSH</h2><p>安装 ZSH 要稍微麻烦一些，前往 <a href="https://packages.msys2.org/package/zsh?repo=msys&amp;variant=x86_64">这个地址</a> 下载压缩包，可以看到这是一个 <code>zst</code> 格式的压缩包，如果你的解压软件不支持这个格式，还需要额外安装一个针对这种格式的解压工具 <a href="https://peazip.github.io/peazip-64bit.html">PeaZip</a>。</p><p>因为受限于环境限制，无法在本机上安装 PeaZip，所以我是在 Ubuntu 虚拟机里安装了相关的解压缩工具，解压完成后弄到 Windows 10 物理机下。</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 zstd</span><br>sudo apt install -y zstd<br><br><span class="hljs-comment"># 解压</span><br>zstd -d zsh-5.8-5-x86_64.pkg.tar.zst<br></code></pre></td></tr></tbody></table></figure><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/imagesimage-20220311111441169.png"></p><p>解压后的 tar 包里包含以下文件，先找个地方解压出来：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/imagesimage-20220311112654246.png"></p><p>解压出来的目录里，把 <code>zsh.exe</code> 删除掉，并把 <code>zsh-5.8.exe</code> 重命名为 <code>zsh.exe</code>，因为原来的 <code>zsh.exe</code> 大小为 <code>0</code>，Git Bash 里使用 ZSH 无法生效，调整后把整个文件夹复制到 Git 的安装目录下，比如我的 Git 安装在 <code>D:\Program Files\Git</code> 。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/imagesimage-20220311112936556.png"></p><h2 id="Oh-My-Zsh"><a href="#Oh-My-Zsh" class="headerlink" title="Oh My Zsh"></a>Oh My Zsh</h2><p>执行以下命令安装：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sh -c <span class="hljs-string">"<span class="hljs-subst">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span><br></code></pre></td></tr></tbody></table></figure><h3 id="zsh-autosuggestions"><a href="#zsh-autosuggestions" class="headerlink" title="zsh-autosuggestions"></a>zsh-autosuggestions</h3><p>On My Zsh 自带了 Git 的插件，但我个人使用至少还需要一个插件：<a href="https://github.com/zsh-users/zsh-autosuggestions">zsh-autosuggestions</a>，这个插件可以<strong>提示曾经使用过的命令并自动完成</strong>，非常好用。</p><p>安装说明可以查看 <a href="https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md">Github</a> 。</p><h2 id="将-ZSH-设置为默认-Shell"><a href="#将-ZSH-设置为默认-Shell" class="headerlink" title="将 ZSH 设置为默认 Shell"></a>将 ZSH 设置为默认 Shell</h2><p>在 <code>.bashrc</code> 文件里，添加如下，然后执行 <code>source .bashrc</code>：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Launch Zsh</span><br><span class="hljs-keyword">if</span> [ -t 1 ]; <span class="hljs-keyword">then</span><br><span class="hljs-built_in">exec</span> zsh<br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></tbody></table></figure><p>自此，以后再启动 Git Bash 的时候就会默认切换到 ZSH 了。</p><h2 id="Tabby"><a href="#Tabby" class="headerlink" title="Tabby"></a>Tabby</h2><p><a href="https://tabby.sh/">Tabby</a> 是一个现代化的终端程序，跨平台，支持大尺度定制化，UI 也非常养眼。</p><p>通过 Tabby 调用 Git Bash，以达到多标签和分屏等效果。</p><h3 id="将-Git-Bash-作为默认终端"><a href="#将-Git-Bash-作为默认终端" class="headerlink" title="将 Git Bash 作为默认终端"></a>将 Git Bash 作为默认终端</h3><p>在 <code>配置</code> 里，将 Git Bash 作为默认终端，再打开新的标签的时候就会默认使用 Git Bash。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/imagesimage-20220311142304843.png"></p><h3 id="更改复制粘贴的快捷键"><a href="#更改复制粘贴的快捷键" class="headerlink" title="更改复制粘贴的快捷键"></a>更改复制粘贴的快捷键</h3><p>Windows 上有一个特别难受的地方就是在终端里复制粘贴的原生快捷键不再好用，但由于 Tabby 支持自定义快捷键，所以可以通过更改快捷键的方式来达到相同的目的。</p><p>在 <code>设置 &gt; 快捷键</code> 中，分别为 <code>复制</code> 和 <code>粘贴</code> 增加上原生的快捷键。</p><h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>另外，我个人还在 <code>设置 &gt; 终端</code> 里将 <code>右键点击</code> 调整成了 <code>右键菜单</code>，将剪贴板的 <code>选中时复制</code> 给关闭了，这些都看个人喜好吧。</p><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>在 Windows 上开发，始终没有 Mac 上来的舒畅，<strong>路漫漫其修远兮，吾将上下而求索</strong>。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>折腾</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Windows</tag>
+      
+      <tag>Tabby</tag>
+      
+      <tag>Git Bash</tag>
+      
+      <tag>ZSH</tag>
+      
+      <tag>Oh My Zsh</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Ubuntu 经验积累</title>
+    <link href="/7be7930f.html"/>
+    <url>/7be7930f.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="Ubuntu-20-04-更改系统时区"><a href="#Ubuntu-20-04-更改系统时区" class="headerlink" title="Ubuntu 20.04 更改系统时区"></a>Ubuntu 20.04 更改系统时区</h2><p>可以使用 <code>date -R</code> 查看当前系统时间。</p><p>运行 <code>tzselect</code>。</p><ol><li><p>选择亚洲</p></li><li><p>选择国家和城市</p></li><li><p>确认</p></li><li><p>最后执行 <code>sudo cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code> 覆盖配置。</p></li><li><p>再次执行 <code>date -R</code> 检查结果。</p></li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Ubuntu</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Gogs 部署 WebHook</title>
+    <link href="/b141a6da.html"/>
+    <url>/b141a6da.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="Gogs-部署-Webhook"><a href="#Gogs-部署-Webhook" class="headerlink" title="Gogs 部署 Webhook"></a>Gogs 部署 Webhook</h1><p>Gogs 同时支持 Git 和 Web 方式的钩子，Git 方式比较适合 Gogs 代码仓库和项目部署在同一台服务器上的情况，Web 钩子适合代码仓库和项目部署在不同服务器上的情况。无论是哪种情况，Web 钩子都可以做到，相比于 Git 钩子，Web 钩子要稍微麻烦一点，因为是跨服务器的，需要写脚本，调用接口。</p><p>假设我的 Gogs 服务器部署在 A 服务器上，然后项目部署在 B 服务器上，那么配置好 Gogs 的 Web 钩子以后，仓库在收到了你订阅的操作以后，会调用你配置的接口地址（这个接口应该是 B 服务器提供），把相关信息以 API 的方式推送给 B，然后 B 服务器在收到 API 推送请求以后，应该根据情况，如仓库、分支、事件等进行相关逻辑操作。</p><p>Gogs 的 Web 钩子配置的地方在 <code>仓库设置 -&gt; 管理 Web 钩子</code>，在<code>添加新的 Web 钩子</code>处选择 <code>Gogs</code>：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201182213448.png"></p><p>在之后跳出来的页面里配置上<code>推送地址</code>、和 <code>密钥文本</code> 后点击 <code>添加 Web 钩子</code>，会提示添加钩子成功，再次点击钩子名称可以编辑钩子。</p><p>在编辑钩子的页面的底部，可以查看到<code>推送记录</code>和进行<code>测试推送</code>。</p><p>这里我以本机为例，在 Nginx 中配置一个 <code>vhost</code> 监听 <code>8080 </code>端口并把请求转发给 PHP 来处理，下面是 PHP 脚本里的内容：</p><figure class="highlight php"><table><tbody><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-variable">$request_body</span> = file_get_contents(<span class="hljs-string">"php://input"</span>);<br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$request_body</span>)) {<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">'received request body is empty.'</span>);<br>}<br><br><span class="hljs-variable">$content</span> = json_decode(<span class="hljs-variable">$request_body</span>, <span class="hljs-literal">true</span>);<br><br><span class="hljs-keyword">switch</span> (<span class="hljs-variable">$content</span>[<span class="hljs-string">'repository'</span>][<span class="hljs-string">'name'</span>]) {<br>    <span class="hljs-comment">// 匹配项目名称</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">'gogs-webhook-test'</span>:<br>        <span class="hljs-keyword">switch</span> (<span class="hljs-variable">$content</span>[<span class="hljs-string">'ref'</span>]) {<br>            <span class="hljs-comment">// 匹配分支</span><br>            <span class="hljs-keyword">case</span> <span class="hljs-string">'refs/heads/master'</span>:<br>            <span class="hljs-comment">// 要执行的操作：进入到项目所在目录，拉取最新代码。</span><br>                exec(<span class="hljs-string">"cd /home/wwwroot/gogs-webhook-test/ &amp;&amp; git pull origin master"</span>);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">default</span>:<br>                <span class="hljs-keyword">break</span>;<br>        }<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">default</span>:<br>        <span class="hljs-keyword">break</span>;<br>}<br></code></pre></td></tr></tbody></table></figure><p>在测试推送之前，可以先准备一下部署密钥，方便部署。先给 <code>www</code> 用户安排上密钥，输入以下命令一路回车即可：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo -Hu www ssh-keygen -t rsa<br></code></pre></td></tr></tbody></table></figure><p>然后查看一下公钥内容，并复制下来：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cat /home/www/.ssh/id_rsa.pub<br></code></pre></td></tr></tbody></table></figure><p>在 Gogs 的 <code>仓库设置</code>中，点击<code>管理部署密钥</code>，点击<code>添加部署密钥</code>，标题起个有意义的，有分区度的比如：<code>XX 服务器 www 用户</code> 这种，然后把刚刚复制下来的公钥内容填入到<code>密钥文本</code>中点击下方的<code>添加部署密钥</code>。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201182213315.png"></p><p>接下来，以 <code>www</code> 用户的身份把项目克隆到服务器上，然后随便做点什么更改便可观察测试是否有自动拉取最新的代码。如果禁用 <code>exec()</code> 函数等，一定要解禁。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>运维</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Gogs</tag>
+      
+      <tag>代码仓库</tag>
+      
+      <tag>WebHook</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>解决 VirtualBox 升级导致 Vagrant 无法启动的问题</title>
+    <link href="/77e0579c.html"/>
+    <url>/77e0579c.html</url>
+    
+    <content type="html"><![CDATA[<p>今天把 VirtualBox 给升级到了 <code>6.1.30</code> 之后，发现 Homestead 无法启动了，报错如下：</p><figure class="highlight shell"><table><tbody><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">➜  ~ vm up<br>Bringing machine 'homestead' up with 'virtualbox' provider...<br>==&gt; homestead: Checking if box 'laravel/homestead' version '11.5.0' is up to date...<br>==&gt; homestead: Clearing any previously set network interfaces...<br>The IP address configured for the host-only network is not within the<br>allowed ranges. Please update the address used to be within the allowed<br>ranges and run the command again.<br><br>  Address: 192.168.10.10<br>  Ranges: 192.168.56.0/21<br><br>Valid ranges can be modified in the /etc/vbox/networks.conf file. For<br>more information including valid format see:<br><br>  https://www.virtualbox.org/manual/ch06.html#network_hostonly<br></code></pre></td></tr></tbody></table></figure><p>去到 <code>https://www.virtualbox.org/manual/ch06.html#network_hostonly</code> 这个地址已经给出了相关的解决办法：</p><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo mkdir /etc/vbox<br><br>sudo vim /etc/vbox/networks.conf<br></code></pre></td></tr></tbody></table></figure><p>并将以下内容写入到 <code>/etc/vbox/networks.conf</code> 即可解决：</p><figure class="highlight asciidoc"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-bullet">* </span>10.0.0.0/8 192.168.0.0/16<br><span class="hljs-bullet">* </span>2001::/64<br></code></pre></td></tr></tbody></table></figure><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161129832.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>排错</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Homestead</tag>
+      
+      <tag>VirtualBox</tag>
+      
+      <tag>Vagrant</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>MacOS 上使用 VirtualBox 安装 OpenWRT</title>
+    <link href="/7d336898.html"/>
+    <url>/7d336898.html</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>临近年关了，由于一定的原因春节期间需要背着笔记本到处走，就提前收拾了一下笔记本：</p><ol><li>把磁盘给格了，干干净净的。</li><li>重新安装了系统，升级到了最新版，舒服。</li><li>布置平时开发需要用到的环境和软件等。</li><li>OpenWRT 必须安排上，懂得都懂。</li></ol></blockquote><p>平时在家里都是直接在我的 J4125 上全局 OpenWRT，但笔记本的网络环境还是安排到本地虚拟机里比较方便。</p><p>我是用的 eSir 编译的固件，下载好，把 <code>.gz</code> 解压成 <code>.img</code>，如果你是下载的 OpenWRT 官网的镜像则不需要了。</p><h2 id="准备镜像"><a href="#准备镜像" class="headerlink" title="准备镜像"></a>准备镜像</h2><p>OpenWRT 的 <code>.img</code> 文件需要先转换成 VirtualBox 所能识别的 <code>.vdi</code> 虚拟硬盘文件。</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">VBoxManage convertfromraw --format VDI openwrt-spp-winter\[2022\]-x86-64-generic-squashfs-uefi.img openwrt.vdi<br></code></pre></td></tr></tbody></table></figure><p>看到如下信息代表没啥问题：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Converting from raw image file=<span class="hljs-string">"openwrt-spp-winter[2022]-x86-64-generic-squashfs-uefi.img"</span> to file=<span class="hljs-string">"openwrt.vdi"</span>...<br>Creating dynamic image with size 541359616 bytes (517MB)...<br></code></pre></td></tr></tbody></table></figure><h2 id="VirtualBox-设置"><a href="#VirtualBox-设置" class="headerlink" title="VirtualBox 设置"></a>VirtualBox 设置</h2><h3 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h3><p>打开 VirtualBox ，然后点击 <code>新建</code> 来新建一个虚拟机。</p><ul><li>名称可以随意填写；</li><li>类型选择 <code>Linux</code>；</li><li>版本选择 <code>Linux 2.6/3.x/4.x(64-bit)</code>。</li></ul><p>点击 <code>继续</code>。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161049374.png"></p><p>内存默认给到 1024 M 就足够了，点击 <code>继续</code>。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161050509.png"></p><p>接下来，先把刚刚转换好的 <code>openwrt.vdi</code> 文件移动到 <code>/Users/lvxc/VirtualBox VMs/OpenWRT</code>，这个路径就是正在创建的虚拟机的位置。</p><p>在 <code>虚拟硬盘</code> 窗口里，选择 <code>使用已有的虚拟硬盘文件</code>，点击右侧的 <code>文件</code> 图标弹出虚拟介质管理器，点击 <code>注册</code> ，选择 <code>openwrt.vdi</code>，点击 <code>选择</code>，点击 <code>创建</code>，即可完成虚拟机的创建。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161050019.png"></p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161050594.png"></p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161050556.png"></p><h3 id="虚拟机设置"><a href="#虚拟机设置" class="headerlink" title="虚拟机设置"></a>虚拟机设置</h3><h4 id="VirtualBox-设置-1"><a href="#VirtualBox-设置-1" class="headerlink" title="VirtualBox 设置"></a>VirtualBox 设置</h4><p>在 VirtualBox 的菜单栏里，点击 <code>管理</code>，在弹出来的 <code>主机网络管理器</code> 窗口中点击 <code>创建</code> ，点击 <code>关闭</code>，这时候我们就创建了一个 <code>仅主机(Host-only) 网络适配器</code>。</p><p>![](/Users/lvxc/Library/Application Support/typora-user-images/image-20220115221154848.png</p><p>!(/Users/lvxc/Library/Application Support/typora-user-images/image-20220115221128330.png)</p><h4 id="虚拟机网络设置"><a href="#虚拟机网络设置" class="headerlink" title="虚拟机网络设置"></a>虚拟机网络设置</h4><p>在虚拟机 <code>OpenWRT</code> 的 <code>设置</code> 中，选择 <code>网络</code> ，将 <strong>网卡 1</strong> 的连接方式设置为 <code>桥接网卡</code>。</p><ul><li><code>界面名称</code> 设置为当前笔记本连接网络的方式，也就是 <code>en0: Wi-Fi(AirPort)</code>。</li><li><code>高级</code> - <code>控制芯片</code> 选择 <code>Intel PRO/1000 MT 服务器（82545EM）</code>。</li><li><code>高级</code> - <code>混杂模式</code> 选择 <code>全部允许</code>。</li></ul><p>点击 <code>OK</code> 保存，并启动虚拟机。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161050124.png"></p><h3 id="修改网络"><a href="#修改网络" class="headerlink" title="修改网络"></a>修改网络</h3><p>输入以下命令，将 IP 修改成同一网段里的不重复的 IP，比如我这里用  <code>192.168.1.100</code> ，重新启动虚拟机：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">uci <span class="hljs-built_in">set</span> network.lan.ipaddr=<span class="hljs-string">'192.168.1.100'</span><br><br>uci commit<br><br>reboot<br></code></pre></td></tr></tbody></table></figure><p>虚拟机重启以后，便可以在浏览器里输入 <code>192.168.1.100</code> 来访问 OpenWRT 的 web 控制界面了，如果没有修改过密码，默认为没有密码。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161050359.png"></p><p>在 <code>网络</code> - <code>接口</code> - <code>LAN</code> 中，设置 <code>IPv4 网关</code> 为当前网络的网关 <code>192.168.1.1</code>，然后在下面的 <code>基本设置</code> 里勾选 <code>忽略此接口</code>，保存并应用。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161050163.png"></p><p>在 <code>网络</code> - <code>Turbo ACC 网络加速</code> 中勾选 <code>DNS 缓存</code> 并设置上游 DNS 服务器，保存并应用。</p><p>看一下 <code>网络</code> - <code>DHCP/DNS</code> 里的 <code>DNS 转发</code> 是不是 <code>127.0.0.1#5333</code>，是这个就没问题了。</p><h3 id="物理机使用"><a href="#物理机使用" class="headerlink" title="物理机使用"></a>物理机使用</h3><p>至此，虚拟机里的 OpenWRT 就算是基本可以用了，在 Mac 主机上，可以通过手动设置 IP 地址，将 <code>路由</code> 设置为 OpenWRT 的 IP 地址，然后添加一个 DNS 为 OpenWRT 的地址，便可以走 OpenWRT 了。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161051054.png"></p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202201161051437.png"></p><p>OK，关机备用。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>折腾</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Mac</tag>
+      
+      <tag>VirtualBox</tag>
+      
+      <tag>OpenWRT</tag>
+      
+      <tag>虚拟机</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>CentOS 8 部署 Yapi</title>
+    <link href="/2a8401d8.html"/>
+    <url>/2a8401d8.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><ol><li><p>查看可用的模块，<code>d</code> 代表默认的版本：</p><figure class="highlight shell"><table><tbody><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">yum module list nodejs<br></code></pre></td></tr></tbody></table></figure><p> <img src="https://coderlxc-1256179520.file.myqcloud.com/20210818/BfkYTI.png"></p></li><li><p>安装默认版本</p><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum module install nodejs<br></code></pre></td></tr></tbody></table></figure></li><li><p>配置 NPM 淘宝镜像</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm config set registry https://registry.npm.taobao.org<br></code></pre></td></tr></tbody></table></figure></li></ol><h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><ol><li><p>创建 yum 配置文件</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">vim /etc/yum.repos.d/mongodb-org-4.2.repo<br></code></pre></td></tr></tbody></table></figure></li><li><p>编辑配置文件填入以下内容：</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">[mongodb-org-4.2]<br>name=MongoDB Repository<br>baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/<br>gpgcheck=1<br>enabled=1<br>gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc<br></code></pre></td></tr></tbody></table></figure></li><li><p>安装 MongoDB</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum install -y mongodb-org<br></code></pre></td></tr></tbody></table></figure></li><li><p>启动 MongoDB 服务</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl start mongod<br></code></pre></td></tr></tbody></table></figure></li><li><p>配置开机启动</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl enable mongod<br></code></pre></td></tr></tbody></table></figure></li><li><p>查看是否配置开机自启成功</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl list-unit-files|grep mongod<br></code></pre></td></tr></tbody></table></figure></li></ol><h2 id="Yapi"><a href="#Yapi" class="headerlink" title="Yapi"></a>Yapi</h2><ol><li><p>安装 Yapi</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install -g yapi-cli<br></code></pre></td></tr></tbody></table></figure></li><li><p>启动可视化安装服务</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yapi server<br></code></pre></td></tr></tbody></table></figure></li><li><p>填写相关配置信息后，点击<code>开始部署</code>，等待完成后记住<code>管理员邮箱账号</code>和<code>密码</code></p></li></ol><p><img src="https://coderlxc-1256179520.file.myqcloud.com/20210818/lWVmYf.png"></p><ol start="4"><li><p>切换到 Yapi 的部署位置启动服务，此时可通过 web 来访问 Yapi 服务了</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /root/my-yapi &amp;&amp; node vendors/server/app.js<br></code></pre></td></tr></tbody></table></figure></li></ol><h2 id="PM2-守护进程"><a href="#PM2-守护进程" class="headerlink" title="PM2 守护进程"></a>PM2 守护进程</h2><ol><li><p>安装 PM2</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install -y pm2<br></code></pre></td></tr></tbody></table></figure></li><li><p>使用 PM2 启动 Yapi，并设置占用内存超过 500M 后重新启动服务：</p> <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pm2 start /root/my-yapi/vendors/server/app.js -n yapi --max-memory-restart 500M<br></code></pre></td></tr></tbody></table></figure></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>运维</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>CentOS</tag>
+      
+      <tag>Yapi</tag>
+      
+      <tag>部署</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>CentOS 7 部署 Gogs 私有代码仓库</title>
+    <link href="/7ffb7ac.html"/>
+    <url>/7ffb7ac.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="设置-Git-用户"><a href="#设置-Git-用户" class="headerlink" title="设置 Git 用户"></a>设置 Git 用户</h2><ol><li>创建 Git 用户</li></ol><figure class="highlight bash"><table><tbody><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">adduser git<br></code></pre></td></tr></tbody></table></figure><ol start="2"><li>给 <code>/etc/sudoers</code> 添加写权限</li></ol><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">chmod +w /etc/sudoers<br></code></pre></td></tr></tbody></table></figure><ol start="3"><li>把 Git 用户加进 <code>sudoers</code>，并设置 sudo 的时候不用输入密码</li></ol><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git     ALL=(ALL)       NOPASSWD:ALL<br></code></pre></td></tr></tbody></table></figure><h2 id="搭建-Gogs"><a href="#搭建-Gogs" class="headerlink" title="搭建 Gogs"></a>搭建 Gogs</h2><ol><li>进入到 Git 用户的家目录并下载 Gogs 的进制包，最新版本的二进制包可以去<a href="https://gogs.io/docs/installation/install_from_binary">官网</a>查看。</li></ol><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /home/git &amp;&amp; wget https://dl.gogs.io/0.12.3/gogs_0.12.3_linux_amd64.tar.gz<br></code></pre></td></tr></tbody></table></figure><ol start="2"><li>解压</li></ol><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar -zxvf gogs_0.12.3_linux_amd64.tar.gz<br></code></pre></td></tr></tbody></table></figure><ol start="3"><li>进入到刚刚解压好的 gogs 目录，使用 Git 用户临时启动 Gogs 服务</li></ol><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> gogs &amp;&amp; sudo -u git ./gogs web<br></code></pre></td></tr></tbody></table></figure><ol start="4"><li>创建一个 Gogs 数据库</li></ol><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> database gogs <span class="hljs-keyword">default</span> CHARSET utf8mb4 <span class="hljs-keyword">COLLATE</span> utf8mb4_unicode_ci;<br></code></pre></td></tr></tbody></table></figure><ol start="5"><li>创建一个只有本地可以连接的 <code>gogs</code> 用户，密码是 <code>password</code>，<strong>注意将密码修改你自己的</strong>。</li></ol><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">user</span> <span class="hljs-string">'gogs'</span>@<span class="hljs-string">'127.0.0.1'</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">'password'</span>;<br></code></pre></td></tr></tbody></table></figure><ol start="6"><li>给 <code>gogs</code> 用户分配 <code>gogs</code> 数据库的所有权限</li></ol><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> PRIVILEGES <span class="hljs-keyword">on</span> gogs.<span class="hljs-operator">*</span> <span class="hljs-keyword">to</span> <span class="hljs-string">'gogs'</span>@<span class="hljs-string">'127.0.0.1'</span>;<br></code></pre></td></tr></tbody></table></figure><p>这时候就可以通过服务器的 <code>IP:3000</code> 访问了 Gogs 的 Web 页面了，我用 Nginx 配了反向代理，所以直接访问 <code>IP</code> 即可。</p><p>在 Web 页面上配置好<strong>数据库信息</strong>、<strong>仓库根目录</strong>、<strong>运行系统用户</strong>等信息，点击<code>立即安装</code>即可。</p><p>关于<code>管理员账号设置</code>，可以这个页面中直接设置，也可以安装完成以后再去注册，Gogs 的规则是：<strong>第一个注册的用户</strong>就是管理员。</p><p>如下是我的配置：</p><p><img src="https://coderlxc-1256179520.file.myqcloud.com/20210812/dI4Ob8.png"></p><h2 id="把-Gogs-作为服务运行并配置开机自启动"><a href="#把-Gogs-作为服务运行并配置开机自启动" class="headerlink" title="把 Gogs 作为服务运行并配置开机自启动"></a>把 Gogs 作为服务运行并配置开机自启动</h2><ol><li>把 Gogs 官方提供的 <code>gogs.service</code> 模板复制到 <code>/etc/systemd/system</code> 目录下：</li></ol><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cp /home/git/gogs/scripts/systemd/gogs.service /etc/systemd/system<br></code></pre></td></tr></tbody></table></figure><ol start="2"><li>修改 <code>gogs.service</code> 模板，如果你是按照上面的步骤操作的则没有什么需要修改的。</li><li>重新加载 <code>systemd</code>:</li></ol><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl daemon-reload<br></code></pre></td></tr></tbody></table></figure><ol start="4"><li>启动 Gogs 服务</li></ol><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl start gogs<br></code></pre></td></tr></tbody></table></figure><ol start="5"><li>加入开机自启动</li></ol><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl <span class="hljs-built_in">enable</span> gogs<br></code></pre></td></tr></tbody></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>运维</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>CentOS</tag>
+      
+      <tag>Gogs</tag>
+      
+      <tag>代码仓库</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Homestead 配置 Xdebug 3 调试 Web 页面</title>
+    <link href="/f57e8b7a.html"/>
+    <url>/f57e8b7a.html</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>以下内容基于：</p><ul><li>Homestead v13.0.1</li><li>PHP 8.0</li><li>Xdebug v3.0.4</li><li>Chrome 96.0.4664.110</li><li>Chrome Extension: Xdebug Helper 1.6.1</li></ul></blockquote><p>首先进入到 Homestead 里，切换到想要使用的 PHP 版本上，执行 <code>php -v</code> 查看信息。</p><p>如果没有 Xdebug 字样，则需要执行 <code>sudo phpenmod xdebug</code>来开启动 xdebug：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242520.png"></p><p>查看对应版本 PHP 的 xdebug 配置文件位置：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242639.png"></p><p>编辑这个配置文件，在文件末尾添加以下两行（如果你的 Xdebug 主版本号是 2 的话，这里的配置项会不同），保存退出：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">xdebug.client_host=192.168.10.1<br><br>xdebug.mode=debug<br></code></pre></td></tr></tbody></table></figure><p>执行 <code>sudo service php8.0-fpm restart</code>重启 FPM。</p><p>在 PHPStorm 里设置里，配置一个远程 CLI 解释器，选择 <code>Vagrant</code>:</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242273.png"></p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251242446.png"></p><p><code>Vagrant 实例文件夹</code> 选择 Homestead 文件夹所在位置：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243072.png"></p><p>前往 Chrome 应用商店下载安装 <a href="https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc">Xdebug helper - Chrome 网上应用店</a>， 打开配置页面，配置 PHPStorm 的 IDE Key，然后开启 Debug 模式：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243821.png"></p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243126.png"></p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251230024.png"></p><p>在代码里下个断点，触发断点后 PHPStorm 里会弹出如下窗口，选择<code>手动选择本文件或项目</code>后点击<code>接受</code>：</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202112251243177.png"></p><p>再次进入 PHPStorm 设置，选择 <code>PHP &gt; 服务器</code> 可以看到刚刚配置的服务器，将<strong>顶层目录</strong>映射正确后即可正常 Debug：</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Homestead</tag>
+      
+      <tag>Xdebug</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
