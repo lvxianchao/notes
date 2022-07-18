@@ -423,9 +423,9 @@ footer:
     # ICP证号
     icp_text: 吉ICP备19006532号-2
     # 公安备案号，不填则只显示ICP
-    police_text: 京公网安备19006532号
+    police_text:
     # 公安备案的编号，用于URL跳转查询
-    police_code: 19006532
+    police_code:
     # 公安备案的图片. 为空时不显示备案图片
     police_icon: /img/police_beian.png
 
