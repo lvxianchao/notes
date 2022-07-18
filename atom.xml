@@ -6,7 +6,7 @@
   <link href="https://coderlxc.com/atom.xml" rel="self"/>
   
   <link href="https://coderlxc.com/"/>
-  <updated>2022-04-10T04:20:50.677Z</updated>
+  <updated>2022-04-10T06:40:34.385Z</updated>
   <id>https://coderlxc.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://coderlxc.com/8e1b3a1e.html"/>
     <id>https://coderlxc.com/8e1b3a1e.html</id>
     <published>2022-04-10T03:50:56.000Z</published>
-    <updated>2022-04-10T04:20:50.677Z</updated>
+    <updated>2022-04-10T06:40:34.385Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Jetbrains-Code-With-Me-私有部署"><a href="#Jetbrains-Code-With-Me-私有部署" class="headerlink" title="Jetbrains Code With Me 私有部署"></a>Jetbrains Code With Me 私有部署</h1><blockquote><p>最近因为疫情的原因在家办公，通过 VPN + Remote Desktop 的方式在公司的电脑上写代码，延迟非常大，严重影响效率。</p><p>资源地址：<a href="https://www.jetbrains.com/zh-cn/code-with-me/on-prem/">https://www.jetbrains.com/zh-cn/code-with-me/on-prem/</a></p></blockquote><p>我想起了 <code>Code With Me</code> 这个东西，于是试用了一下感觉还不错，但因为默认的服务器是 Jetbrains 的，网络原因会导致有时候也会卡，于是就想着试试用我自己在国内的服务器搭建一个私有的服务器试试效果如何，结果体验下来非常棒，网络延迟基本感觉不到，记录一下。</p><p>在 <code>Code With Me</code> 的设置里可以看到，默认使用的服务器是 Jetbrains 的，我们只需要把这个 <code>大厅服务器 URL </code>替换成自己的就行了。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202204101159820.png"></p><p>在 <code>资源地址  </code>里，点击 <code>注册免费试用</code>，填写表单提交以后，会收到 Jetbrains 发来的邮件。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202204101208752.png"></p><p>邮件里包含服务器的搭建文档和两个附件，附件里有一个 <code>.key</code> 结尾的许可证文件，下载下来，搭建服务器的时候需要用到。</p><p><img src="https://raw.githubusercontent.com/lvxianchao/images/main/images/202204101206909.png"></p><p>远程登录到服务器上，把 <code>资源地址</code> 里的 <code>快速设置启动器</code> 里的 <code>Linux x86-64.tar.gz</code> 文件包下载下来并解压，我这里的解压以后的文件夹名称是 <code>code-with-me-quick-setup-1744</code>，进入到这个文件夹里，把从邮件里下载到 <code>key</code> 文件上传到这个文件夹中。</p><p>运行以下命令便可以启动服务器，需要把 <code>服务器 IP</code> 和 <code>Code_With_Me_Enterprise-XXXXXXX.key</code> 换成你自己的：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">./launch.sh -h 服务器 IP -k Code_With_Me_Enterprise-XXXXXXX.key<br></code></pre></td></tr></tbody></table></figure><p>服务运行起来以后，把 IDE 的 <code>大厅服务器 URL</code> 替换成：<code>http://服务器IP:2093</code> 就可以了。</p>]]></content>
     
