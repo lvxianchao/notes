@@ -28,7 +28,7 @@
     "hexo-renderer-marked": "^4.0.0",
     "hexo-renderer-stylus": "^2.0.0",
     "hexo-server": "^2.0.0",
-    "hexo-theme-fluid": "^1.8.14",
+    "hexo-theme-fluid": "^1.9.4",
     "hexo-wordcount": "^6.0.1"
   }
 }
